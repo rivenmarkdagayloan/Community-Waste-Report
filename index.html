@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A simple community web app for reporting waste problems and tracking their progress." />
+  <title>Community Waste Report</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <div class="brand"><span aria-hidden="true">♻️</span> Community Waste Report</div>
+      <button id="leaderToggleBtn" type="button">LEADER</button>
+    </div>
+    <div class="subtitle">Keep our community clean and healthy!</div>
+  </header>
+
+  <main class="container">
+    <div id="leaderBanner" class="leader-banner" role="status">
+      <span>🛡️ Leader's Portal Active (Staff Mode)</span>
+      <span>Can update, edit, and delete reports</span>
+    </div>
+    <div id="appMessage" class="app-message" role="status" aria-live="polite"></div>
+
+    <section class="card" aria-labelledby="formHeading">
+      <h2 id="formHeading">Report Waste Problem</h2>
+      <p class="desc" id="formSubtext">Fill out the form to report improper waste disposal in your community.</p>
+      <form id="wasteForm">
+        <input type="hidden" id="editReportId" value="" />
+        <div class="form-group">
+          <label for="title">Report Title</label>
+          <input type="text" id="title" maxlength="80" placeholder="Example: Garbage piling up near the road" required />
+        </div>
+        <div class="form-group">
+          <label for="category">Waste Category</label>
+          <select id="category" required>
+            <option value="" disabled selected>Select category</option>
+            <option value="Plastic Waste">Plastic Waste</option>
+            <option value="Household Waste">Household Waste</option>
+            <option value="Food Waste">Food Waste</option>
+            <option value="Illegal Dumping">Illegal Dumping</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" maxlength="120" placeholder="Enter the affected street or area" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" maxlength="600" placeholder="Describe the waste problem and where it can be found..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Submit Report</button>
+        <button type="button" class="btn-cancel" id="cancelEditBtn" hidden>Cancel Edit</button>
+      </form>
+      <p class="small-note">Please do not include private or sensitive personal information in a report.</p>
+    </section>
+
+    <section class="card" aria-labelledby="reportsHeading">
+      <h2 id="reportsHeading">Submitted Reports</h2>
+      <p class="desc">View reported community waste problems and check their progress.</p>
+      <div class="stats" aria-label="Report summary">
+        <div class="stat"><strong id="totalCount">0</strong><span>Total Reports</span></div>
+        <div class="stat"><strong id="pendingCount">0</strong><span>Pending</span></div>
+        <div class="stat"><strong id="progressCount">0</strong><span>In Progress</span></div>
+        <div class="stat"><strong id="resolvedCount">0</strong><span>Resolved</span></div>
+      </div>
+      <div class="filters">
+        <input type="search" id="searchInput" placeholder="Search reports..." aria-label="Search reports" />
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="">All categories</option>
+          <option value="Plastic Waste">Plastic Waste</option>
+          <option value="Household Waste">Household Waste</option>
+          <option value="Food Waste">Food Waste</option>
+          <option value="Illegal Dumping">Illegal Dumping</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+      </div>
+      <div id="reportList" class="report-list" aria-live="polite"></div>
+      <p class="small-note">Demo note: reports are saved in this browser on this device using localStorage. They are not shared with other devices or users.</p>
+    </section>
+  </main>
+
+  <div id="pinModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pinHeading">
+    <div class="modal-box">
+      <h3 id="pinHeading">Leader's Portal Access</h3>
+      <p>Enter the demo staff PIN to manage reports.</p>
+      <input type="password" id="pinInput" maxlength="6" inputmode="numeric" autocomplete="off" placeholder="••••" aria-label="Staff PIN" />
+      <div id="pinError" class="error-msg" role="alert">Incorrect PIN. Try again.</div>
+      <button class="btn-primary" id="unlockBtn" type="button">Unlock Portal</button>
+      <button class="btn-cancel" id="closePinBtn" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="script.js">
+   
+  </script>
+</body>
+</html>
